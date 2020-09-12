@@ -57,8 +57,15 @@ export default class App extends Component {
       }
 
       createBottomTabs = () => {
-        return <MaterialBottomTabs.Navigator>
-          <MaterialBottomTabs.Screen name="Tab1" component={Tab1} />
+        return <MaterialBottomTabs.Navigator
+        activeColor="#f0edf6"
+        inactiveColor="#3e2465"
+        barStyle={{ backgroundColor: '#e91e63' }}
+        >
+          <MaterialBottomTabs.Screen
+          name="Tab1"
+          component={Tab1}
+          />
           <MaterialBottomTabs.Screen name="Tab2" component={Tab2} />
           <MaterialBottomTabs.Screen name="Tab3" component={Tab3} />
         </MaterialBottomTabs.Navigator>
