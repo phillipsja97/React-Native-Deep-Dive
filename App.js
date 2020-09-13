@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Feed from './src/Feed';
 import Screen1 from './src/Screens/Drawer/Screen1';
 import Screen2 from './src/Screens/Drawer/Screen2';
@@ -8,11 +8,12 @@ import Tab2 from './src/Screens/Tabs/Tab2';
 import Tab3 from './src/Screens/Tabs/Tab3';
 import Detail from './src/Detail';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { Appearance, useColorScheme, AppearanceProvider } from 'react-native-appearance';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -20,24 +21,33 @@ const MaterialBottomTabs = createMaterialBottomTabNavigator();
 const MaterialTopTabs = createMaterialTopTabNavigator();
 
 
-export default class App extends Component {
-  render() {
+export default function App() {
+
+  const colorScheme = useColorScheme();
+
+  const MyTheme = {
+    dark: false,
+    colors: {
+      primary: 'white',
+      background: 'white',
+      card: '#65509f',
+      text: 'white',
+      border: 'green',
+    },
+  }
+
       createHomeStack = () =>
         <Stack.Navigator>
           <Stack.Screen name="Feed"
           component={Feed}
           options={{
-            title: "My Feed",
-            headerStyle: {backgroundColor: "black"},
-            headerTintColor: "white"
+            title: "My Feed"
           }}
           />
           <Stack.Screen name="Detail"
           component={Detail}
           options={{
-            title: "Detail Screen",
-            headerStyle: {backgroundColor: "blue"},
-            headerTintColor: "white"
+            title: "Detail Screen"
           }}
           />
           <Stack.Screen name="Bottom Tabs" children={createBottomTabs} />
@@ -60,7 +70,7 @@ export default class App extends Component {
         return <MaterialBottomTabs.Navigator
         activeColor="#f0edf6"
         inactiveColor="#3e2465"
-        barStyle={{ backgroundColor: '#e91e63' }}
+        barStyle={{ backgroundColor: '#65509f' }}
         >
           <MaterialBottomTabs.Screen
           name="Tab1"
@@ -71,15 +81,16 @@ export default class App extends Component {
         </MaterialBottomTabs.Navigator>
       }
     return (
-      <NavigationContainer>
-        <Drawer.Navigator>
-          <Drawer.Screen name="Home" children={createHomeStack}/>
-          <Drawer.Screen name="Contacts" component={Screen1}/>
-          <Drawer.Screen name="Favorites" component={Screen2}/>
-          <Drawer.Screen name="Settings" component={Screen3}/>
+      <AppearanceProvider>
+        <NavigationContainer theme={MyTheme}>
+          <Drawer.Navigator>
+            <Drawer.Screen name="Home" children={createHomeStack}/>
+            <Drawer.Screen name="Contacts" component={Screen1}/>
+            <Drawer.Screen name="Favorites" component={Screen2}/>
+            <Drawer.Screen name="Settings" component={Screen3}/>
 
-        </Drawer.Navigator>
-      </NavigationContainer>
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </AppearanceProvider>
     );
-  }
 }

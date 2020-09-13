@@ -9,5 +9,8 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 36,
     marginBottom: 16
+  },
+  androidLink: {
+    color: 'blue'
   }
 });
